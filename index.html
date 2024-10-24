@@ -6,8 +6,102 @@
     <title>Home</title>
     <link rel="stylesheet" href="style.css">
     <link rel="icon" href="IMAGES\BROWN LOGO.png" type="image/png">
+    <style>
+        /* Fullscreen loader */
+        #loader {
+            position: fixed;
+            width: 100%;
+            height: 100vh;
+            margin-left: -8px;
+            margin-top: -8px;
+            background: #2c2c2c; /* Modern dark background */
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            z-index: 9999; /* Make sure it's on top */
+            flex-direction: column; /* Stack the logo and loader vertically */
+            transition: opacity 0.5s ease; /* Smooth transition */
+        }
+
+        /* Logo inside the loader */
+        #loader img {
+            width: 120px; /* Adjust size according to your logo */
+            margin-bottom: 20px; /* Space between logo and spinner */
+        }
+
+        /* Dual Spinner loader */
+        .dual-spinner {
+            display: inline-block;
+            position: relative;
+            width: 64px;
+            height: 64px;
+        }
+
+        .dual-spinner div {
+            box-sizing: border-box;
+            display: block;
+            position: absolute;
+            width: 51px;
+            height: 51px;
+            margin: 6px;
+            border: 6px solid #ffffff; /* White spinner */
+            border-radius: 50%;
+            animation: dual-spin 1.2s infinite;
+            border-color: #ffffff transparent transparent transparent; /* Modern border animation */
+        }
+
+        .dual-spinner div:nth-child(1) {
+            animation-delay: -0.45s;
+        }
+        .dual-spinner div:nth-child(2) {
+            animation-delay: -0.3s;
+        }
+        .dual-spinner div:nth-child(3) {
+            animation-delay: -0.15s;
+        }
+
+        @keyframes dual-spin {
+            0% {
+                transform: rotate(0deg);
+            }
+            100% {
+                transform: rotate(360deg);
+            }
+        }
+
+        /* Hide the loader when content is shown */
+        body.loaded #loader {
+            opacity: 0;
+            visibility: hidden;
+        }
+
+        /* Body content style (example) */
+        #content {
+            display: none; /* Hide content initially */
+            text-align: center;
+        }
+
+        body.loaded #content {
+            display: block; /* Show content after loader fades out */
+        }
+
+        .product {
+            padding-top: 50px;
+            color: #8d8d8d;
+        }
+    </style>
 </head>
 <body>
+    <!-- Loading Screen -->
+    <div id="loader">
+        <img src="IMAGES\BROWN LOGO.png" alt="Your Logo"> <!-- Replace with your logo URL -->
+        <div class="dual-spinner">
+            <div></div>
+            <div></div>
+            <div></div>
+        </div>
+        <div class="product"><h5>A product of Hierarchy Digital</h5></div>
+    </div>
     <div class="img">
          <img src="IMAGES\WHY US 2.png">
     </div>
@@ -23,9 +117,9 @@
         <div class="quiz-links" id="quiz-links"></div>
     </div>
     <div class="img2">
-        <a href="https://drive.google.com/file/d/1mbYKtRT7oq5f0UAgChYjTqd7py9oVPFk/view?usp=drive_link"><img src="IMAGES/get-it-on-google-play-badge.png" alt="Google Play"></a>
+        <a href="https://play.google.com/"><img src="IMAGES/get-it-on-google-play-badge.png" alt="Google Play"></a>
         
-        <a href="https://drive.google.com/file/d/1mbYKtRT7oq5f0UAgChYjTqd7py9oVPFk/view?usp=drive_link"><img src="IMAGES/huawei-Badge-Black-768x231.png" alt="Huawei"></a>
+        <a href="https://consumer.huawei.com/en/mobileservices/appgallery/"><img src="IMAGES/huawei-Badge-Black-768x231.png" alt="Huawei"></a>
     </div>
 </body>
 <footer class="footer">
@@ -134,6 +228,13 @@
         // Set a delay before showing the container (e.g., 2 seconds)
         setTimeout(showContainer, 2000);
     });
+
+     // Display loader for 6 seconds before hiding it
+     window.onload = function() {
+            setTimeout(function() {
+                document.body.classList.add('loaded'); // Add 'loaded' class after 6 seconds
+            }, 3000); // 6000 milliseconds = 6 seconds
+        };
 </script>
 </html>
 
