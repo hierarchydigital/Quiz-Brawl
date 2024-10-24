@@ -1,0 +1,189 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <link rel="icon" href="IMAGES\BROWN LOGO.png" type="image/png">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Rate Our App</title>
+    <style>
+        body {
+            font-family: 'Roboto', sans-serif;
+            background-color: white;
+            color: #1A1A1A;
+            text-align: center;
+        }
+
+        #quiz-container {
+            max-width: 600px;
+            margin: 50px auto;
+            padding: 20px;
+            border: 2px solid #1A1A1A;
+            border-radius: 15px;
+            position: relative;
+            transform: translateX(-100%);
+            animation: slideIn 0.5s forwards;
+            display: none; /* Initially hidden */
+        }
+
+        @keyframes slideIn {
+            from {
+                transform: translateX(-100%);
+            }
+            to {
+                transform: translateX(0);
+            }
+        }
+
+        .star {
+            font-size: 40px;
+            cursor: pointer;
+            color: grey;
+            transition: color 0.3s ease;
+        }
+
+        .star:hover,
+        .star.selected {
+            color: gold;
+        }
+
+        #submit-btn {
+            background-color: #1A1A1A;
+            color: white;
+            border: none;
+            border-radius: 25px;
+            padding: 10px 20px;
+            font-size: 18px;
+            cursor: pointer;
+            transition: background-color 0.3s ease;
+            margin-top: 20px;
+        }
+
+        #submit-btn:hover {
+            background-color: gray;
+        }
+
+        #error-message {
+            color: red;
+            font-size: 18px;
+            margin-top: 10px;
+        }
+
+        /* Footer Styling */
+.footer {
+    position: fixed;
+    bottom: 0;
+    width: 100%;
+    background-color: rgba(255, 255, 255, 0.8); /* Slightly more opaque for a modern look */
+    backdrop-filter: blur(10px); /* Blur effect for the background content */
+    -webkit-backdrop-filter: blur(10px); /* For Safari */
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
+    padding: 10px 0;
+    box-shadow: 0 -2px 10px rgba(0, 0, 0, 0.15); /* Slightly stronger shadow for depth */
+; /* Added border for style */
+    border-radius: 15px 15px 0 0; /* Rounded edges at the top */
+    margin-left: -7.999px; /* Adjust margin for full width */
+    z-index: 1000; /* Ensure it appears above other content */
+}
+
+/* Icon Styling */
+.footer-icon {
+    color: #000; /* Change icon color to black */
+    font-size: 24px;
+    text-decoration: none;
+    flex: 1;
+    text-align: center;
+    transition: color 0.3s; /* Smooth color transition */
+}
+    </style>
+</head>
+<body>
+
+    <div id="quiz-container">
+        <h1>Rate Quiz Brawl</h1>
+        <div id="stars" class="stars">
+            <span class="star" data-value="1">&#9733;</span>
+            <span class="star" data-value="2">&#9733;</span>
+            <span class="star" data-value="3">&#9733;</span>
+            <span class="star" data-value="4">&#9733;</span>
+            <span class="star" data-value="5">&#9733;</span>
+        </div>
+        <button type="button" id="submit-btn" class="option-button" onclick="submitRating()">Submit Rating</button>
+        <div id="error-message"></div>
+    </div>
+
+    <script>
+        // Function to show the quiz container after a delay
+        function showContainer() {
+            const container = document.getElementById('quiz-container');
+            container.style.display = 'block';
+        }
+
+        // Set a delay before showing the container (e.g., 2 seconds)
+        setTimeout(showContainer, 2000);
+
+        let rating = 0;
+
+        // Event delegation for stars
+        document.getElementById('stars').addEventListener('click', function(e) {
+            if (e.target.classList.contains('star')) {
+                rating = e.target.getAttribute('data-value');
+                resetStars();
+                highlightStars(rating);
+            }
+        });
+
+        // Touch support for iOS
+        document.querySelectorAll('.star').forEach(star => {
+            star.addEventListener('touchstart', (e) => {
+                e.preventDefault(); // Prevent scrolling during touch
+                rating = star.getAttribute('data-value');
+                resetStars();
+                highlightStars(rating);
+            });
+        });
+
+        function resetStars() {
+            document.querySelectorAll('.star').forEach(star => {
+                star.classList.remove('selected');
+            });
+        }
+
+        function highlightStars(rating) {
+            for (let i = 0; i < rating; i++) {
+                document.querySelectorAll('.star')[i].classList.add('selected');
+            }
+        }
+
+        function submitRating() {
+            // Validate if a rating has been selected
+            if (rating < 1 || rating > 5 || rating === '') {
+                document.getElementById('error-message').textContent = 'Please select a rating by clicking on a star.';
+                return;
+            }
+
+            // Detect iOS device and open Mail app
+            const isIOS = /iPad|iPhone|iPod/.test(navigator.userAgent) && !window.MSStream;
+            if (isIOS) {
+                const mailtoLink = 'mailto:hierarchydigital@gmail.com?subject=Quiz Brawl Rating&body=Rating: ' + rating;
+                window.location.href = mailtoLink;
+            } else {
+                // For non-iOS devices, create an email using a mailto link
+                const email = 'hierarchydigital@gmail.com';
+                const subject = 'Quiz Brawl Rating';
+                const body = 'Rating: ' + rating;
+                const mailto = 'mailto:' + email + '?subject=' + encodeURIComponent(subject) + '&body=' + encodeURIComponent(body);
+                window.location.href = mailto;
+            }
+        }
+    </script>
+
+</body>
+<footer class="footer">
+    <a href="index.html" class="footer-icon" id="home-button"><img src="https://img.icons8.com/quill/40/home.png" alt="Home Icon"></a>
+    <a href="quiz.html" class="footer-icon"><img src="https://img.icons8.com/quill/40/quiz.png" alt="Icon 2"></a>
+    <a href="past-papers.html" class="footer-icon"><img src="https://img.icons8.com/quill/40/exam.png" alt="Icon 3"></a>
+    <a href="about.html" class="footer-icon"><img src="https://img.icons8.com/quill/40/info.png" alt="Icon 4"></a>
+</footer>
+</html>

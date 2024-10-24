@@ -1,0 +1,178 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Search Quiz</title>
+    <link rel="icon" href="IMAGES\BROWN LOGO.png" type="image/png">
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <div class="img">
+         <img src="IMAGES\WHY US 2.png">
+    </div>
+    <div id="quiz-search-container">
+        <h1>Subject Quiz Search</h1>
+        <p>Please enter your school subject to see available quizzes:</p>
+        
+        <input type="text" id="subject" placeholder="Enter your subject">
+        <button id="submit-btn">Search</button>
+        
+        <div id="error-message-search"></div>
+        
+        <div class="quiz-links" id="quiz-links"></div>
+    </div>
+
+    <div id="quiz-search-container2">
+        <h1>Sign Up for Quiz Brawl Updates</h1>
+        <input type="email" id="email" placeholder="Enter your email" required>
+        <button id="submit-btn" class="option-button">Sign Up</button>
+        <div id="error-message"></div>
+    </div>
+
+   
+    <div class="img2">
+        <a href="https://play.google.com/"><img src="IMAGES/get-it-on-google-play-badge.png" alt="Google Play"></a>
+        
+        <a href="https://consumer.huawei.com/en/mobileservices/appgallery/"><img src="IMAGES/huawei-Badge-Black-768x231.png" alt="Huawei"></a>
+    </div>
+   
+</body>
+<footer class="footer">
+    <a href="index.html" class="footer-icon" id="home-button"><img src="https://img.icons8.com/quill/40/home.png" alt="Home Icon"></a>
+    <a href="quiz.html" class="footer-icon"><img src="https://img.icons8.com/quill/40/quiz.png" alt="Icon 2"></a>
+    <a href="past-papers.html" class="footer-icon"><img src="https://img.icons8.com/quill/40/exam.png" alt="Icon 3"></a>
+    <a href="about.html" class="footer-icon"><img src="https://img.icons8.com/quill/40/info.png" alt="Icon 4"></a>
+</footer>
+<script>
+    const quizzes = {
+        'accounting': [
+            { name: 'Accounting Paper 1', link: 'https://sites.google.com/view/quizbrawl/grades/grade-12/accounting/paper-1' },
+            { name: 'Accounting Paper 2', link: 'https://sites.google.com/view/quizbrawl/grades/grade-12/accounting/paper-2' }
+        ],
+        
+        'business': [
+            { name: 'Business Studies Paper 1', link: 'https://sites.google.com/view/quizbrawl/grades/grade-12/business-studies/paper-1' },
+            { name: 'Business Studies Paper 2', link: 'https://sites.google.com/view/quizbrawl/grades/grade-12/business-studies/paper-2' }
+        ],
+        'business studies': [
+            { name: 'Business Studies Paper 1', link: 'https://sites.google.com/view/quizbrawl/grades/grade-12/business-studies/paper-1' },
+            { name: 'Business Studies Paper 2', link: 'https://sites.google.com/view/quizbrawl/grades/grade-12/business-studies/paper-2' }
+        ],
+        
+        'cat': [
+            { name: 'CAT Paper 1', link: 'https://sites.google.com/view/quizbrawl/grades/grade-12/cat/paper-1' },
+            { name: 'CAT Paper 2', link: 'https://sites.google.com/view/quizbrawl/grades/grade-12/cat/paper-2' }
+        ],
+'computer applications technology': [
+            { name: 'CAT Paper 1', link: 'https://sites.google.com/view/quizbrawl/grades/grade-12/cat/paper-1' },
+            { name: 'CAT Paper 2', link: 'https://sites.google.com/view/quizbrawl/grades/grade-12/cat/paper-2' }
+        ],            
+        'economics': [
+            { name: 'Economics Paper 1', link: 'https://sites.google.com/view/quizbrawl/grades/grade-12/economics/paper-1' },
+            { name: 'Economics Paper 2', link: 'https://sites.google.com/view/quizbrawl/grades/grade-12/economics/paper-2' }
+        ],
+        'geography': [
+            { name: 'Geography Paper 1', link: 'https://sites.google.com/view/quizbrawl/grades/grade-12/geography/paper-1' },
+            { name: 'Geography Paper 2', link: 'https://sites.google.com/view/quizbrawl/grades/grade-12/geography/paper-2' }
+        ],
+        'history': [
+            { name: 'History Paper 1', link: 'https://sites.google.com/view/quizbrawl/grades/grade-12/history/paper-1' },
+            { name: 'History Paper 2', link: 'https://sites.google.com/view/quizbrawl/grades/grade-12/history/paper-2' }
+        ],
+        'life sciences': [
+            { name: 'Life Sciences Paper 1', link: 'https://sites.google.com/view/quizbrawl/grades/grade-12/life-sciences/paper-1' },
+            { name: 'Life Sciences Paper 2', link: 'https://sites.google.com/view/quizbrawl/grades/grade-12/life-sciences/paper-2' }
+        ],
+        
+        'chemistry': [
+            { name: 'Life Sciences Paper 1', link: 'https://sites.google.com/view/quizbrawl/grades/grade-12/life-sciences/paper-1' },
+            { name: 'Life Sciences Paper 2', link: 'https://sites.google.com/view/quizbrawl/grades/grade-12/life-sciences/paper-2' }
+        ],            
+        
+        'biology': [
+            { name: 'Life Sciences Paper 1', link: 'https://sites.google.com/view/quizbrawl/grades/grade-12/life-sciences/paper-1' },
+            { name: 'Life Sciences Paper 2', link: 'https://sites.google.com/view/quizbrawl/grades/grade-12/life-sciences/paper-2' }
+        ],            
+        
+        
+        'physical sciences': [
+            { name: 'Physical Sciences Paper 1', link: 'https://sites.google.com/view/quizbrawl/grades/grade-12/physical-sciences/paper-1' },
+            { name: 'Physical Sciences Paper 2', link: 'https://sites.google.com/view/quizbrawl/grades/grade-12/physical-sciences/paper-2' }
+        ],
+        'physics': [
+            { name: 'Physical Sciences Paper 1', link: 'https://sites.google.com/view/quizbrawl/grades/grade-12/physical-sciences/paper-1' },
+            { name: 'Physical Sciences Paper 2', link: 'https://sites.google.com/view/quizbrawl/grades/grade-12/physical-sciences/paper-2' }
+        ],            
+        'tourism': [
+            { name: 'Tourism Paper 1', link: 'https://sites.google.com/view/quizbrawl/grades/grade-12/tourism/paper-1' },
+            { name: 'Tourism Paper 2', link: 'https://sites.google.com/view/quizbrawl/grades/grade-12/tourism/paper-2' }
+        ]
+    };
+
+    document.addEventListener('DOMContentLoaded', function() {
+        document.getElementById('submit-btn').addEventListener('click', function() {
+            const subjectInput = document.getElementById('subject').value.toLowerCase();
+            const quizLinksDiv = document.getElementById('quiz-links');
+            const errorMessageDiv = document.getElementById('error-message-search');  // Fixed ID name for error message
+
+            quizLinksDiv.innerHTML = '';
+            errorMessageDiv.innerHTML = '';
+
+            if (quizzes[subjectInput]) {
+                quizzes[subjectInput].forEach(quiz => {
+                    const quizLink = document.createElement('a');
+                    quizLink.href = quiz.link;
+                    quizLink.innerText = quiz.name;
+                    quizLink.target = '_blank';
+                    quizLinksDiv.appendChild(quizLink);
+                    quizLinksDiv.appendChild(document.createElement('br')); // Add line breaks
+                });
+            } else {
+                errorMessageDiv.innerText = 'No quizzes available for this subject, contact help centre.';
+            }
+        });
+
+        // Function to show the quiz container after a delay
+        function showContainer() {
+            const container = document.getElementById('quiz-container');
+            if (container) {
+                container.style.display = 'block';
+            }
+        }
+
+        // Set a delay before showing the container (e.g., 2 seconds)
+        setTimeout(showContainer, 2000);
+    });
+
+    document.getElementById('submit-btn').addEventListener('click', function () {
+            var email = document.getElementById('email').value;
+            var errorMessage = document.getElementById('error-message');
+
+            // Validate email format
+            var emailPattern = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+            if (!emailPattern.test(email)) {
+                errorMessage.textContent = 'Please enter a valid email address.';
+                return;
+            }
+
+            // Prepare the mailto link
+            var mailtoLink = 'mailto:hierarchydigital@gmail.com'
+                            + '?subject=Quiz Brawl Update Subscription'
+                            + '&body=Please add this user to the update list: ' + encodeURIComponent(email);
+
+            // Open the default email client with the prepared content
+            window.location.href = mailtoLink; // Use href to forcefully open the mail app
+        });
+
+        // Function to show the quiz container after a delay
+        function showContainer() {
+            const container = document.getElementById('quiz-search-container2');
+            container.style.display = 'block';
+        }
+
+        // Set a delay before showing the container (e.g., 2 seconds)
+        setTimeout(showContainer, 2000);
+</script>
+</html>
+
